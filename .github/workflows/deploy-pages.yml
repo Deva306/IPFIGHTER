@@ -37,6 +37,18 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Build Scramjet WASM
+        run: |
+          cd packages/core/rewriter/wasm
+          cargo build --release --target wasm32-unknown-unknown
+          mkdir -p ../../dist
+          cp target/wasm32-unknown-unknown/release/wasm.wasm ../../dist/scramjet.wasm
+
       - name: Build Scramjet core
         run: pnpm --filter @mercuryworkshop/scramjet build
 
