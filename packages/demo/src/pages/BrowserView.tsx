@@ -1,12 +1,11 @@
 import {
-	css,
-	type Delegate,
-	type Component,
-	createState,
+        css,
+        type Component,
+        createState,
 } from "dreamland/core";
 import {
-	CatchEscapedLinksPlugin,
-	UrlWatcherPlugin,
+        CatchEscapedLinksPlugin,
+        UrlWatcherPlugin,
 } from "@mercuryworkshop/scramjet-utils";
 import { versionInfo } from "@mercuryworkshop/scramjet";
 import { cachePlugin, controller } from "..";
@@ -15,208 +14,291 @@ import homepage from "./homepage.html?raw";
 import type { Frame } from "@mercuryworkshop/scramjet-controller";
 
 export const browserState = createState({
-	url: demoSettingsStore.homeUrl,
-	frame: null! as Frame,
+        url: demoSettingsStore.homeUrl,
+        frame: null! as Frame,
 });
 
-export const Omnibox: Component = function (cx) {
-	const navigate = () => {
-		if (!browserState.url.startsWith("http")) {
-			browserState.url = `https://${browserState.url}`;
-		}
-		demoSettingsStore.homeUrl = browserState.url;
-		browserState.frame?.go(browserState.url);
-	};
-	return (
-		<form
-			class="url-form"
-			on:submit={(e: SubmitEvent) => {
-				e.preventDefault();
-				navigate();
-			}}
-		>
-			<div class="browser-omnibox-shell">
-				<div class="omnibox-nav" aria-hidden="true">
-					<button
-						type="button"
-						class="nav-btn"
-						on:click={() => browserState.frame?.back()}
-					>
-						<span class="material-symbols-outlined">arrow_back</span>
-					</button>
-					<button
-						type="button"
-						class="nav-btn"
-						on:click={() => browserState.frame?.forward()}
-					>
-						<span class="material-symbols-outlined">arrow_forward</span>
-					</button>
-					<button
-						type="button"
-						class="nav-btn"
-						on:click={() => browserState.frame?.reload()}
-					>
-						<span class="material-symbols-outlined">refresh</span>
-					</button>
-				</div>
-				<input
-					id="search"
-					class="url-input"
-					type="text"
-					value={use(browserState.url)}
-					spellcheck="false"
-					placeholder="Enter URL or search..."
-				/>
-			</div>
-		</form>
-	);
+export const Omnibox: Component = function () {
+        const navigate = () => {
+                let value = browserState.url.trim();
+
+                if (!value) return;
+
+                if (!/^https?:\/\//i.test(value)) {
+                        value = `https://${value}`;
+                }
+
+                browserState.url = value;
+                demoSettingsStore.homeUrl = value;
+                browserState.frame?.go(value);
+        };
+
+        return (
+                <div class="browser-toolbar">
+                        <div class="navigation-controls">
+                                <button
+                                        type="button"
+                                        title="Back"
+                                        on:click={() => browserState.frame?.back()}
+                                >
+                                        ←
+                                </button>
+                                <button
+                                        type="button"
+                                        title="Forward"
+                                        on:click={() => browserState.frame?.forward()}
+                                >
+                                        →
+                                </button>
+                                <button
+                                        type="button"
+                                        title="Reload"
+                                        on:click={() => browserState.frame?.reload()}
+                                >
+                                        ↻
+                                </button>
+                        </div>
+
+                        <form
+                                class="address-form"
+                                on:submit={(e: SubmitEvent) => {
+                                        e.preventDefault();
+                                        navigate();
+                                }}
+                        >
+                                <div class="security-icon">✓</div>
+                                <input
+                                        id="search"
+                                        class="address-input"
+                                        type="text"
+                                        value={use(browserState.url)}
+                                        spellcheck="false"
+                                        autocomplete="off"
+                                        placeholder="Enter a website address..."
+                                />
+                                <button class="go-button" type="submit">
+                                        Go
+                                </button>
+                        </form>
+
+                        <div class="toolbar-label">
+                                <span class="status-dot"></span>
+                                PROXY
+                        </div>
+                </div>
+        );
 };
+
 Omnibox.style = css`
-	:scope {
-		display: flex;
-		align-items: center;
-		/*padding: 0.25em 0.45em;*/
-		background: #0f0f0f;
-		border-bottom: 1px solid #2a2a2a;
-		min-width: 0;
-		width: 100%;
-	}
-	.browser-omnibox-shell {
-		display: flex;
-		width: 100%;
-		align-items: center;
-		gap: 0.35em;
-		min-width: 0;
-		border: 0;
-		background: transparent;
-		padding: 0;
-		flex: 1;
-	}
-	.omnibox-nav {
-		display: flex;
-		align-items: center;
-		gap: 0.15em;
-		padding-right: 0.25em;
-		border-right: 1px solid #2a2a2a;
-	}
-	.nav-btn {
-		border: 0;
-		background: transparent;
-		color: #8f8f8f;
-		width: 1.5em;
-		height: 1.5em;
-		padding: 0;
-		border-radius: 3px;
-		cursor: pointer;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-	}
-	.nav-btn:hover {
-		background: #1f1f1f;
-		color: #d0d0d0;
-	}
-	.browser-omnibox-shell .material-symbols-outlined {
-		font-size: 15px !important;
-		line-height: 1 !important;
-		font-variation-settings:
-			"OPSZ" 20,
-			"wght" 300,
-			"FILL" 0,
-			"GRAD" 0;
-	}
-	.url-input {
-		box-sizing: border-box;
-		width: 100%;
-		padding: 0.22em 0.18em;
-		font-size: 0.9em;
-		border: 1px solid transparent;
-		border-radius: 3px;
-		background: transparent;
-		color: #e5e7eb;
-		outline: none;
-	}
-	.url-input::placeholder {
-		color: #6f7680;
-	}
+        :scope {
+                width: 100%;
+                box-sizing: border-box;
+        }
+
+        .browser-toolbar {
+                height: 58px;
+                min-height: 58px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 0 14px;
+                background: rgba(11, 13, 21, 0.96);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+                box-sizing: border-box;
+        }
+
+        .navigation-controls {
+                display: flex;
+                gap: 3px;
+        }
+
+        .navigation-controls button {
+                width: 32px;
+                height: 32px;
+                border: 1px solid rgba(255, 255, 255, 0.07);
+                border-radius: 8px;
+                background: rgba(255, 255, 255, 0.035);
+                color: #a6afc0;
+                cursor: pointer;
+                font-size: 17px;
+        }
+
+        .navigation-controls button:hover {
+                background: rgba(255, 255, 255, 0.08);
+                color: white;
+        }
+
+        .address-form {
+                flex: 1;
+                min-width: 0;
+                height: 36px;
+                display: flex;
+                align-items: center;
+                padding: 0 5px 0 11px;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 10px;
+                background: #10131c;
+                transition: 150ms ease;
+        }
+
+        .address-form:focus-within {
+                border-color: rgba(99, 102, 241, 0.55);
+                box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08);
+        }
+
+        .security-icon {
+                width: 20px;
+                color: #22c55e;
+                font-size: 12px;
+                font-weight: 800;
+        }
+
+        .address-input {
+                flex: 1;
+                min-width: 0;
+                height: 100%;
+                border: 0;
+                outline: 0;
+                background: transparent;
+                color: #e8ebf2;
+                font: inherit;
+                font-size: 12px;
+        }
+
+        .address-input::placeholder {
+                color: #5e6677;
+        }
+
+        .go-button {
+                height: 27px;
+                padding: 0 13px;
+                border: 0;
+                border-radius: 7px;
+                background: #4f46e5;
+                color: white;
+                cursor: pointer;
+                font-size: 10px;
+                font-weight: 700;
+        }
+
+        .go-button:hover {
+                background: #6366f1;
+        }
+
+        .toolbar-label {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                color: #657083;
+                font-size: 9px;
+                font-weight: 700;
+                letter-spacing: 0.12em;
+        }
+
+        .status-dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #22c55e;
+                box-shadow: 0 0 8px rgba(34, 197, 94, 0.7);
+        }
+
+        @media (max-width: 650px) {
+                .toolbar-label {
+                        display: none;
+                }
+
+                .browser-toolbar {
+                        gap: 7px;
+                        padding: 0 8px;
+                }
+        }
 `;
 
 const BrowserView: Component<
-	{
-		active: boolean;
-	},
-	{},
-	{
-		frameel: HTMLIFrameElement;
-	}
+        { active: boolean },
+        {},
+        { frameel: HTMLIFrameElement }
 > = function (cx) {
-	cx.mount = async () => {
-		await controller.wait();
+        cx.mount = async () => {
+                await controller.wait();
 
-		let urlWatcher = new UrlWatcherPlugin((url) => {
-			browserState.url = url;
-		});
-		let catchEscapedLinks = new CatchEscapedLinksPlugin(
-			(url) =>
-				new URL(`/?goto=${encodeURIComponent(url.href)}`, location.origin)
-		);
-		browserState.frame = controller.createFrame(this.frameel, {
-			plugins: [cachePlugin, urlWatcher, catchEscapedLinks],
-		});
-		let realHomepage = homepage;
-		realHomepage = realHomepage.replaceAll(
-			"{{SCRAMJET_VERSION}}",
-			String(versionInfo.version)
-		);
-		realHomepage = realHomepage.replaceAll(
-			"{{SCRAMJET_BUILD}}",
-			String(versionInfo.build)
-		);
-		realHomepage = realHomepage.replaceAll(
-			"{{SCRAMJET_DATE_PRETTY}}",
-			new Date(versionInfo.date).toLocaleString(undefined, {
-				dateStyle: "short",
-				timeStyle: "short",
-			})
-		);
-		this.frameel.src = `data:text/html;base64,${btoa(realHomepage)}`;
+                const urlWatcher = new UrlWatcherPlugin((url) => {
+                        browserState.url = url;
+                });
 
-		let goto = new URL(location.href).searchParams.get("goto");
-		if (goto) {
-			browserState.frame?.go(goto);
-			history.replaceState(null, "", location.href.split("?")[0]);
-		}
-	};
+                const catchEscapedLinks = new CatchEscapedLinksPlugin(
+                        (url) =>
+                                new URL(
+                                        `/?goto=${encodeURIComponent(url.href)}`,
+                                        location.origin
+                                )
+                );
 
-	return (
-		<div
-			class={use(this.active).map(
-				(active) => `tab-panel browser-view ${active ? "active" : ""}`
-			)}
-		>
-			<iframe this={use(this.frameel)}></iframe>
-		</div>
-	);
+                browserState.frame = controller.createFrame(this.frameel, {
+                        plugins: [cachePlugin, urlWatcher, catchEscapedLinks],
+                });
+
+                let realHomepage = homepage;
+
+                realHomepage = realHomepage.replaceAll(
+                        "{{SCRAMJET_VERSION}}",
+                        String(versionInfo.version)
+                );
+
+                realHomepage = realHomepage.replaceAll(
+                        "{{SCRAMJET_BUILD}}",
+                        String(versionInfo.build)
+                );
+
+                realHomepage = realHomepage.replaceAll(
+                        "{{SCRAMJET_DATE_PRETTY}}",
+                        new Date(versionInfo.date).toLocaleString(undefined, {
+                                dateStyle: "short",
+                                timeStyle: "short",
+                        })
+                );
+
+                this.frameel.src = `data:text/html;base64,${btoa(realHomepage)}`;
+
+                const goto = new URL(location.href).searchParams.get("goto");
+
+                if (goto) {
+                        browserState.frame?.go(goto);
+                        history.replaceState(null, "", location.href.split("?")[0]);
+                }
+        };
+
+        return (
+                <div
+                        class={use(this.active).map(
+                                (active) => `browser-frame ${active ? "active" : ""}`
+                        )}
+                >
+                        <iframe this={use(this.frameel)} />
+                </div>
+        );
 };
 
 BrowserView.style = css`
-	:scope {
-		flex: 1;
-		width: 100%;
-		min-width: 0;
-		min-height: 0;
-		display: none;
-		flex-direction: column;
-	}
-	:scope.active {
-		display: flex;
-	}
+        :scope {
+                flex: 1;
+                min-width: 0;
+                min-height: 0;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                background: #0a0c12;
+        }
 
-	iframe {
-		background: white;
-		flex: 1;
-		border: none;
-	}
+        iframe {
+                width: 100%;
+                height: 100%;
+                flex: 1;
+                min-height: 0;
+                border: 0;
+                background: white;
+        }
 `;
 
 export default BrowserView;
