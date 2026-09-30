@@ -1,219 +1,390 @@
-import { css, createDelegate, type Component } from "dreamland/core";
-import type { Frame } from "@mercuryworkshop/scramjet-controller";
-import FlagEditor from "./components/FlagEditor";
-import BrowserView from "./pages/BrowserView";
-import RequestViewer from "./pages/RequestViewer";
+import { css, type Component } from "dreamland/core";
+import BrowserView, { Omnibox } from "./pages/BrowserView";
+import RequestViewer, { requestsState } from "./pages/RequestViewer";
 import PlaygroundView from "./pages/Playground";
 import SettingsView from "./pages/SettingsPage";
-import { Omnibox } from "./pages/BrowserView";
-import { requestsState } from "./pages/RequestViewer";
+import FlagEditor from "./components/FlagEditor";
 
 const App: Component<
-	{},
-	{},
-	{
-		activeTab: "browser" | "requests" | "playground" | "settings";
-	}
-> = function (cx) {
-	this.activeTab ??= "browser";
-	return (
-		<div>
-			<div class="top-bar">
-				<div class="tab-bar">
-					<button
-						class={use(this.activeTab).map(
-							(tab) => `tab-button ${tab === "browser" ? "active" : ""}`
-						)}
-						on:click={() => {
-							this.activeTab = "browser";
-						}}
-					>
-						Browser
-					</button>
-					<button
-						class={use(this.activeTab).map(
-							(tab) => `tab-button ${tab === "requests" ? "active" : ""}`
-						)}
-						on:click={() => {
-							this.activeTab = "requests";
-						}}
-					>
-						Requests{" "}
-						{use(requestsState.requests).map((requests) =>
-							requests.length ? `(${requests.length})` : ""
-						)}
-					</button>
-					<button
-						class={use(this.activeTab).map(
-							(tab) => `tab-button ${tab === "playground" ? "active" : ""}`
-						)}
-						on:click={() => {
-							this.activeTab = "playground";
-						}}
-					>
-						Playground
-					</button>
-					<button
-						class={use(this.activeTab).map(
-							(tab) => `tab-button ${tab === "settings" ? "active" : ""}`
-						)}
-						on:click={() => {
-							this.activeTab = "settings";
-						}}
-					>
-						Settings
-					</button>
-					{use(this.activeTab)
-						.map((tab) => tab === "browser")
-						.andThen(<Omnibox />)}
-				</div>
-				<div class="top-actions">
-					<FlagEditor inline={true} />
-				</div>
-			</div>
-			<div
-				class={use(this.activeTab).map(
-					(tab) =>
-						`tab-panel browser-panel ${tab === "browser" ? "active" : ""}`
-				)}
-			>
-				<BrowserView
-					active={use(this.activeTab).map((tab) => tab === "browser")}
-				/>
-			</div>
-			<div
-				class={use(this.activeTab).map(
-					(tab) =>
-						`tab-panel requests-panel ${tab === "requests" ? "active" : ""}`
-				)}
-			>
-				<RequestViewer
-					active={use(this.activeTab).map((tab) => tab === "requests")}
-				/>
-			</div>
-			<div
-				class={use(this.activeTab).map(
-					(tab) =>
-						`tab-panel playground-panel ${tab === "playground" ? "active" : ""}`
-				)}
-			>
-				<PlaygroundView
-					active={use(this.activeTab).map((tab) => tab === "playground")}
-				/>
-			</div>
-			<div
-				class={use(this.activeTab).map(
-					(tab) =>
-						`tab-panel settings-tab ${tab === "settings" ? "active" : ""}`
-				)}
-			>
-				<SettingsView />
-			</div>
-		</div>
-	);
+        {},
+        {},
+        {
+                activeTab: "browser" | "requests" | "playground" | "settings";
+        }
+> = function () {
+        this.activeTab ??= "browser";
+
+        return (
+                <div class="app-shell">
+                        <header class="app-header">
+                                <div class="brand">
+                                        <div class="brand-mark">
+                                                <span>IP</span>
+                                        </div>
+                                        <div class="brand-copy">
+                                                <strong>IPFighter</strong>
+                                                <small>Private Web Browser</small>
+                                        </div>
+                                </div>
+
+                                <nav class="main-nav">
+                                        <button
+                                                class={use(this.activeTab).map(
+                                                        (tab) =>
+                                                                `nav-item ${tab === "browser" ? "active" : ""}`
+                                                )}
+                                                on:click={() => (this.activeTab = "browser")}
+                                        >
+                                                <span class="icon">⌂</span>
+                                                Browser
+                                        </button>
+
+                                        <button
+                                                class={use(this.activeTab).map(
+                                                        (tab) =>
+                                                                `nav-item ${tab === "requests" ? "active" : ""}`
+                                                )}
+                                                on:click={() => (this.activeTab = "requests")}
+                                        >
+                                                <span class="icon">≡</span>
+                                                Requests
+                                                {use(requestsState.requests).map((requests) =>
+                                                        requests.length ? (
+                                                                <span class="count">{requests.length}</span>
+                                                        ) : (
+                                                                ""
+                                                        )
+                                                )}
+                                        </button>
+
+                                        <button
+                                                class={use(this.activeTab).map(
+                                                        (tab) =>
+                                                                `nav-item ${tab === "playground" ? "active" : ""}`
+                                                )}
+                                                on:click={() => (this.activeTab = "playground")}
+                                        >
+                                                <span class="icon">◇</span>
+                                                Playground
+                                        </button>
+
+                                        <button
+                                                class={use(this.activeTab).map(
+                                                        (tab) =>
+                                                                `nav-item ${tab === "settings" ? "active" : ""}`
+                                                )}
+                                                on:click={() => (this.activeTab = "settings")}
+                                        >
+                                                <span class="icon">⚙</span>
+                                                Settings
+                                        </button>
+                                </nav>
+
+                                <div class="header-actions">
+                                        <div class="connection-status">
+                                                <span class="status-dot"></span>
+                                                Connected
+                                        </div>
+                                        <FlagEditor inline={true} />
+                                </div>
+                        </header>
+
+                        <div
+                                class={use(this.activeTab).map(
+                                        (tab) =>
+                                                `workspace ${tab === "browser" ? "browser-active" : ""}`
+                                )}
+                        >
+                                <div
+                                        class={use(this.activeTab).map(
+                                                (tab) =>
+                                                        `view browser-view-panel ${tab === "browser" ? "visible" : ""}`
+                                        )}
+                                >
+                                        <Omnibox />
+                                        <BrowserView
+                                                active={use(this.activeTab).map(
+                                                        (tab) => tab === "browser"
+                                                )}
+                                        />
+                                </div>
+
+                                <div
+                                        class={use(this.activeTab).map(
+                                                (tab) =>
+                                                        `view requests-view ${tab === "requests" ? "visible" : ""}`
+                                        )}
+                                >
+                                        <RequestViewer
+                                                active={use(this.activeTab).map(
+                                                        (tab) => tab === "requests"
+                                                )}
+                                        />
+                                </div>
+
+                                <div
+                                        class={use(this.activeTab).map(
+                                                (tab) =>
+                                                        `view playground-view ${tab === "playground" ? "visible" : ""}`
+                                        )}
+                                >
+                                        <PlaygroundView
+                                                active={use(this.activeTab).map(
+                                                        (tab) => tab === "playground"
+                                                )}
+                                        />
+                                </div>
+
+                                <div
+                                        class={use(this.activeTab).map(
+                                                (tab) =>
+                                                        `view settings-view ${tab === "settings" ? "visible" : ""}`
+                                        )}
+                                >
+                                        <SettingsView />
+                                </div>
+                        </div>
+
+                        <footer class="app-footer">
+                                <span>IPFighter</span>
+                                <span class="footer-separator">•</span>
+                                <span>Secure browsing session</span>
+                                <span class="footer-spacer"></span>
+                                <span>Wisp Transport</span>
+                                <span class="status-dot small"></span>
+                        </footer>
+                </div>
+        );
 };
 
 App.style = css`
-	@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0");
+        :scope {
+                width: 100vw;
+                height: 100vh;
+                position: fixed;
+                inset: 0;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                background:
+                        radial-gradient(circle at 15% 0%, rgba(99, 102, 241, 0.12), transparent 30%),
+                        radial-gradient(circle at 85% 10%, rgba(14, 165, 233, 0.08), transparent 28%),
+                        #07090f;
+                color: #e8ebf2;
+                font-family:
+                        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                        "Segoe UI", sans-serif;
+        }
 
-	:scope {
-		width: 100vw;
-		height: 100vh;
-		display: flex;
-		flex-direction: column;
-		margin: 0;
-		overflow: hidden;
-		position: absolute;
-		top: 0;
-		left: 0;
+        .app-header {
+                height: 64px;
+                min-height: 64px;
+                display: flex;
+                align-items: center;
+                padding: 0 20px;
+                gap: 26px;
+                background: rgba(10, 12, 20, 0.94);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+                backdrop-filter: blur(18px);
+                z-index: 20;
+        }
 
-		padding: 0;
-		background: black;
-		box-sizing: border-box;
-	}
-	.material-symbols-outlined {
-		font-family: "Material Symbols Outlined";
-		font-weight: normal;
-		font-style: normal;
-		font-size: 11px;
-		line-height: 1;
-		letter-spacing: normal;
-		text-transform: none;
-		display: inline-block;
-		white-space: nowrap;
-		word-wrap: normal;
-		direction: ltr;
-		-webkit-font-smoothing: antialiased;
-	}
-	.top-bar {
-		display: flex;
-		align-items: stretch;
-		gap: 0;
-		margin-bottom: 0;
-		border-bottom: 1px solid #4a4a4a;
-		background: #0f0f0f;
-	}
-	.tab-bar {
-		display: flex;
-		flex: 1;
-		align-items: stretch;
-		gap: 0;
-	}
-	.tab-button {
-		border: 1px solid transparent;
-		border-bottom: 0;
-		background: transparent;
-		color: #a8a8a8;
-		padding: 0.24em 0.62em;
-		border-radius: 0;
-		cursor: pointer;
-		font-size: 0.84em;
-		line-height: 1.2;
-		min-height: 28px;
-		margin: 0;
-		white-space: nowrap;
-		display: inline-flex;
-		align-items: center;
-	}
-	.tab-button:hover {
-		background: #181818;
-		color: #d0d0d0;
-	}
-	.tab-button.active {
-		background: #1f1f1f;
-		color: #fff;
-		border-color: #4a4a4a;
-		margin-bottom: -1px;
-	}
-	.top-actions {
-		display: flex;
-		align-items: center;
-		margin-left: auto;
-		padding: 0 0.35em;
-		min-height: 28px;
-	}
-	.tab-panel {
-		flex: 1;
-		width: 100%;
-		min-width: 0;
-		min-height: 0;
-		display: none;
-	}
-	.tab-panel.active {
-		display: flex;
-	}
-	.requests-panel {
-		flex-direction: column;
-	}
-	.playground-panel {
-		width: 100%;
-		min-width: 0;
-		min-height: 0;
-	}
-	.settings-tab {
-		width: 100%;
-		min-width: 0;
-		min-height: 0;
-	}
+        .brand {
+                display: flex;
+                align-items: center;
+                gap: 11px;
+                min-width: 190px;
+        }
+
+        .brand-mark {
+                width: 34px;
+                height: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 10px;
+                background: linear-gradient(135deg, #6366f1, #2563eb);
+                box-shadow: 0 8px 24px rgba(79, 70, 229, 0.28);
+                font-size: 11px;
+                font-weight: 800;
+                letter-spacing: -0.5px;
+        }
+
+        .brand-copy {
+                display: flex;
+                flex-direction: column;
+                gap: 1px;
+        }
+
+        .brand-copy strong {
+                font-size: 15px;
+                letter-spacing: -0.3px;
+        }
+
+        .brand-copy small {
+                color: #70798b;
+                font-size: 9px;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+        }
+
+        .main-nav {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                height: 100%;
+        }
+
+        .nav-item {
+                height: 36px;
+                padding: 0 13px;
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+                border: 1px solid transparent;
+                border-radius: 9px;
+                background: transparent;
+                color: #858da0;
+                cursor: pointer;
+                font: inherit;
+                font-size: 12px;
+                transition: 150ms ease;
+        }
+
+        .nav-item:hover {
+                color: #dce1eb;
+                background: rgba(255, 255, 255, 0.045);
+        }
+
+        .nav-item.active {
+                color: #fff;
+                background: rgba(99, 102, 241, 0.14);
+                border-color: rgba(99, 102, 241, 0.22);
+        }
+
+        .icon {
+                font-size: 14px;
+                opacity: 0.9;
+        }
+
+        .count {
+                min-width: 17px;
+                height: 17px;
+                padding: 0 4px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 99px;
+                background: #4f46e5;
+                color: white;
+                font-size: 9px;
+                font-weight: 700;
+        }
+
+        .header-actions {
+                margin-left: auto;
+                display: flex;
+                align-items: center;
+                gap: 14px;
+        }
+
+        .connection-status {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                color: #8e98aa;
+                font-size: 10px;
+                white-space: nowrap;
+        }
+
+        .status-dot {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: #22c55e;
+                box-shadow: 0 0 10px rgba(34, 197, 94, 0.7);
+        }
+
+        .status-dot.small {
+                width: 5px;
+                height: 5px;
+        }
+
+        .workspace {
+                flex: 1;
+                min-height: 0;
+                position: relative;
+                overflow: hidden;
+        }
+
+        .view {
+                position: absolute;
+                inset: 0;
+                display: none;
+                overflow: hidden;
+        }
+
+        .view.visible {
+                display: flex;
+        }
+
+        .browser-view-panel {
+                flex-direction: column;
+        }
+
+        .requests-view,
+        .playground-view,
+        .settings-view {
+                flex-direction: column;
+                background: #080a10;
+        }
+
+        .app-footer {
+                height: 25px;
+                min-height: 25px;
+                padding: 0 14px;
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                color: #596275;
+                background: #080a10;
+                border-top: 1px solid rgba(255, 255, 255, 0.055);
+                font-size: 9px;
+                letter-spacing: 0.02em;
+        }
+
+        .footer-separator {
+                color: #343b4b;
+        }
+
+        .footer-spacer {
+                flex: 1;
+        }
+
+        @media (max-width: 800px) {
+                .app-header {
+                        padding: 0 10px;
+                        gap: 8px;
+                }
+
+                .brand {
+                        min-width: auto;
+                }
+
+                .brand-copy,
+                .connection-status {
+                        display: none;
+                }
+
+                .main-nav {
+                        flex: 1;
+                        justify-content: center;
+                }
+
+                .nav-item {
+                        padding: 0 9px;
+                }
+        }
 `;
+
 export default App;
