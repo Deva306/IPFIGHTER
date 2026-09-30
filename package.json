@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@types/serviceworker": "^0.0.202"
+  },
+  "dependencies": {
+    "@fastify/deepmerge": "^3.2.1",
+    "@mercuryworkshop/proxy-transports": "^1.0.2"
+  }
+}
