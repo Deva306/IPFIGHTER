@@ -37,6 +37,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build Scramjet core
+        run: pnpm --filter @mercuryworkshop/scramjet build
+
+      - name: Build Scramjet controller
+        run: pnpm --filter @mercuryworkshop/scramjet-controller build
+
       - name: Build DevX
         run: pnpm --filter @mercuryworkshop/scramjet-demo build
 
