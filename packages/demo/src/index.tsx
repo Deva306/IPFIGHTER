@@ -94,10 +94,16 @@ async function init() {
 			throw new Error("No service worker available for controller");
 		}
 		controller = new Controller({
-			serviceworker: readySw,
-			transport: getTransport(),
-			scramjetConfig: defaultConfigDev,
-		});
+                     serviceworker: readySw,
+                     transport: getTransport(),
+                     scramjetConfig: defaultConfigDev,
+                     config: {
+                             prefix: `${import.meta.env.BASE_URL}~/sj/`,
+                             scramjetPath: `${import.meta.env.BASE_URL}scramjet/scramjet.js`,
+                             wasmPath: `${import.meta.env.BASE_URL}scramjet/scramjet.wasm`,
+                             injectPath: `${import.meta.env.BASE_URL}controller/controller.inject.js`,
+                     },
+             });
 		await controller.wait();
 		console.log(controller);
 		interstitial.$.state.status = "Controller initialized";
