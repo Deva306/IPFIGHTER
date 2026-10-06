@@ -1,0 +1,39 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@fastify/deepmerge':
+        specifier: ^3.2.1
+        version: 3.2.1
+      '@mercuryworkshop/proxy-transports':
+        specifier: ^1.0.2
+        version: 1.0.2
+    devDependencies:
+      '@types/serviceworker':
+        specifier: ^0.0.202
+        version: 0.0.202
+
+packages:
+
+  '@fastify/deepmerge@3.2.1':
+    resolution: {integrity: sha512-N5Oqvltoa2r9z1tbx4xjky0oRR60v+T47Ic4J1ukoVQcptLOrIdRnCSdTGmOmajZuHVKlTnfcmrjyqsGEW1ztA==}
+
+  '@mercuryworkshop/proxy-transports@1.0.2':
+    resolution: {integrity: sha512-zgD+JMYNSx8LxVLWwGPPVnoDHjoh1GqqwUJIjhIwCwhy+Z7g+MhmiTJvCcRPAo7qXXbqJwIrpBJduRSOrjMV7g==}
+
+  '@types/serviceworker@0.0.202':
+    resolution: {integrity: sha512-UcPefnaRXkmc0TP6TORm+4cKi2nX3WIfpTx2kryFWfS0d243bu9xVYTpsG4n6BAHzkivxoqHmTvgVYw3RH+zeg==}
+
+snapshots:
+
+  '@fastify/deepmerge@3.2.1': {}
+
+  '@mercuryworkshop/proxy-transports@1.0.2': {}
+
+  '@types/serviceworker@0.0.202': {}
