@@ -1,0 +1,337 @@
+/* ============================================================
+   DevX FUTURISTIC UI THEME
+   Visual-only layer.
+   Does not modify browser/proxy/transport functionality.
+   ============================================================ */
+
+.app-shell {
+        --fx-bg: #05070d;
+        --fx-panel: rgba(12, 16, 27, 0.88);
+        --fx-panel-strong: rgba(15, 20, 34, 0.96);
+        --fx-border: rgba(130, 148, 255, 0.14);
+        --fx-border-hover: rgba(120, 142, 255, 0.30);
+        --fx-text: #edf2ff;
+        --fx-muted: #78849b;
+        --fx-accent: #6675ff;
+        --fx-cyan: #28d7ff;
+        --fx-success: #38e7a1;
+}
+
+/* ---------- REMOVE ALL SCREEN LINES / GRID ---------- */
+
+.app-shell::before,
+.app-shell::after,
+.app-header::after,
+.workspace::before,
+.app-footer::before {
+        display: none !important;
+}
+
+/* ---------- CLEAN FUTURISTIC BASE ---------- */
+
+.app-shell {
+        background:
+                radial-gradient(
+                        circle at 15% 0%,
+                        rgba(92, 108, 255, 0.13),
+                        transparent 30%
+                ),
+                radial-gradient(
+                        circle at 85% 5%,
+                        rgba(28, 205, 255, 0.08),
+                        transparent 27%
+                ),
+                #05070d !important;
+}
+
+/* ---------- HEADER ---------- */
+
+.app-header {
+        height: 68px !important;
+        min-height: 68px !important;
+        padding: 0 22px !important;
+        background: rgba(7, 10, 18, 0.94) !important;
+        border-bottom: 1px solid rgba(255,255,255,0.055) !important;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.28) !important;
+        backdrop-filter: blur(22px) saturate(140%) !important;
+}
+
+.brand {
+        min-width: 205px !important;
+}
+
+.brand-mark {
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 12px !important;
+        background: linear-gradient(135deg, #5868ff, #7256ff) !important;
+        box-shadow:
+                0 8px 30px rgba(88,104,255,0.25),
+                inset 0 1px 0 rgba(255,255,255,0.20) !important;
+}
+
+.brand-copy strong {
+        font-size: 16px !important;
+        letter-spacing: -0.4px !important;
+}
+
+.brand-copy small {
+        color: #66738c !important;
+        letter-spacing: 0.17em !important;
+}
+
+/* ---------- NAVIGATION ---------- */
+
+.main-nav {
+        gap: 5px !important;
+}
+
+.nav-item {
+        height: 38px !important;
+        padding: 0 14px !important;
+        border-radius: 11px !important;
+        color: #747f96 !important;
+        background: transparent !important;
+        border: 1px solid transparent !important;
+        box-shadow: none !important;
+        transform: none !important;
+}
+
+.nav-item:hover {
+        color: #e8edff !important;
+        background: rgba(255,255,255,0.045) !important;
+        border-color: rgba(255,255,255,0.065) !important;
+}
+
+.nav-item.active {
+        color: #ffffff !important;
+        background:
+                linear-gradient(
+                        135deg,
+                        rgba(102,117,255,0.18),
+                        rgba(102,117,255,0.07)
+                ) !important;
+        border-color: rgba(112,129,255,0.23) !important;
+        box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.06),
+                0 5px 25px rgba(77,91,255,0.08) !important;
+}
+
+.nav-item::before {
+        display: none !important;
+}
+
+.icon {
+        color: #8795ff !important;
+}
+
+/* ---------- CONNECTION ---------- */
+
+.connection-status {
+        padding: 7px 11px !important;
+        border: 1px solid rgba(56,231,161,0.12) !important;
+        border-radius: 999px !important;
+        background: rgba(56,231,161,0.025) !important;
+        color: #7f8ca4 !important;
+}
+
+.status-dot {
+        background: #38e7a1 !important;
+        box-shadow: 0 0 12px rgba(56,231,161,0.65) !important;
+        animation: none !important;
+}
+
+/* ---------- MAIN WORKSPACE ---------- */
+
+.workspace {
+        background: #05070d !important;
+}
+
+.view {
+        background: transparent !important;
+}
+
+.view.visible {
+        animation: fxFadeIn 160ms ease-out !important;
+}
+
+/* ---------- BROWSER PAGE ---------- */
+
+.browser-view-panel {
+        background:
+                radial-gradient(
+                        circle at 50% 0%,
+                        rgba(74,92,255,0.045),
+                        transparent 32%
+                ),
+                #05070d !important;
+}
+
+/* ---------- REQUESTS PAGE ---------- */
+
+.requests-view {
+        background:
+                radial-gradient(
+                        circle at 50% 0%,
+                        rgba(96,112,255,0.075),
+                        transparent 38%
+                ),
+                #05070d !important;
+}
+
+.requests-view > * {
+        max-width: 1500px;
+}
+
+.requests-view button {
+        border-radius: 9px;
+        transition: 150ms ease;
+}
+
+.requests-view button:hover {
+        transform: translateY(-1px);
+}
+
+/* ---------- PLAYGROUND PAGE ---------- */
+
+.playground-view {
+        background:
+                radial-gradient(
+                        circle at 20% 0%,
+                        rgba(111,82,255,0.08),
+                        transparent 35%
+                ),
+                #05070d !important;
+}
+
+.playground-view textarea,
+.playground-view input,
+.playground-view select,
+.playground-view .monaco-editor,
+.playground-view [class*="editor"] {
+        border-color: rgba(110,128,255,0.14) !important;
+        background: rgba(8,11,20,0.82) !important;
+        border-radius: 10px !important;
+}
+
+.playground-view button {
+        border-radius: 9px !important;
+        transition: 150ms ease !important;
+}
+
+.playground-view button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 24px rgba(76,91,255,0.10);
+}
+
+/* ---------- SETTINGS PAGE ---------- */
+
+.settings-view {
+        background:
+                radial-gradient(
+                        circle at 80% 0%,
+                        rgba(0,207,255,0.055),
+                        transparent 32%
+                ),
+                #05070d !important;
+}
+
+.settings-view button,
+.settings-view input,
+.settings-view select {
+        border-radius: 10px !important;
+}
+
+.settings-view button {
+        transition: 150ms ease !important;
+}
+
+.settings-view button:hover {
+        transform: translateY(-1px);
+}
+
+/* ---------- GENERIC FUTURISTIC SURFACES ---------- */
+
+.app-shell input,
+.app-shell textarea,
+.app-shell select {
+        outline: none;
+        transition:
+                border-color 150ms ease,
+                box-shadow 150ms ease,
+                background 150ms ease;
+}
+
+.app-shell input:focus,
+.app-shell textarea:focus,
+.app-shell select:focus {
+        border-color: rgba(105,124,255,0.42) !important;
+        box-shadow:
+                0 0 0 3px rgba(105,124,255,0.07),
+                0 0 25px rgba(80,96,255,0.08) !important;
+}
+
+/* ---------- SCROLLBARS ---------- */
+
+.app-shell * {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(100,116,255,0.28) transparent;
+}
+
+.app-shell *::-webkit-scrollbar {
+        width: 7px;
+        height: 7px;
+}
+
+.app-shell *::-webkit-scrollbar-track {
+        background: transparent;
+}
+
+.app-shell *::-webkit-scrollbar-thumb {
+        background: rgba(100,116,255,0.24);
+        border-radius: 999px;
+}
+
+.app-shell *::-webkit-scrollbar-thumb:hover {
+        background: rgba(100,116,255,0.42);
+}
+
+/* ---------- FOOTER ---------- */
+
+.app-footer {
+        height: 27px !important;
+        min-height: 27px !important;
+        background: rgba(5,8,15,0.96) !important;
+        border-top: 1px solid rgba(255,255,255,0.045) !important;
+        color: #4f5b70 !important;
+}
+
+.footer-separator {
+        color: #283146 !important;
+}
+
+/* ---------- ANIMATION ---------- */
+
+@keyframes fxFadeIn {
+        from {
+                opacity: 0.85;
+        }
+
+        to {
+                opacity: 1;
+        }
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 800px) {
+        .app-header {
+                height: 62px !important;
+                min-height: 62px !important;
+                padding: 0 10px !important;
+        }
+
+        .nav-item {
+                padding: 0 9px !important;
+        }
+}
