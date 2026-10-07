@@ -50,6 +50,9 @@ importers:
       '@rspack/core':
         specifier: ^1.5.8
         version: 1.6.7(@swc/helpers@0.5.17)
+      '@types/node':
+        specifier: ^26.6.4
+        version: 26.6.4
       ava:
         specifier: ^6.4.1
         version: 6.4.1(rollup@4.52.5)
@@ -73,7 +76,7 @@ importers:
         version: 1.8.16
       vite:
         specifier: ^7.3.0
-        version: 7.3.0(@types/node@26.0.1)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.1)
+        version: 7.3.0(@types/node@26.6.4)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.1)
 
   packages/bootstrap:
     dependencies:
@@ -234,10 +237,10 @@ importers:
     devDependencies:
       vite:
         specifier: ^7.3.1
-        version: 7.3.1(@types/node@26.0.1)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.1)
+        version: 7.3.1(@types/node@26.6.4)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.1)
       vite-plugin-static-copy:
         specifier: ^3.1.6
-        version: 3.1.6(vite@7.3.1(@types/node@26.0.1)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.1))
+        version: 3.1.6(vite@7.3.1(@types/node@26.6.4)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.1))
 
   packages/rpc: {}
 
@@ -996,11 +999,11 @@ packages:
   '@types/node@24.9.0':
     resolution: {integrity: sha512-MKNwXh3seSK8WurXF7erHPJ2AONmMwkI7zAMrXZDPIru8jRqkk6rGDBVbw4mLwfqA+ZZliiDPg05JQ3uW66tKQ==}
 
-  '@types/node@24.9.1':
-    resolution: {integrity: sha512-QoiaXANRkSXK6p0Duvt56W208du4P9Uye9hWLWgGMDTEoKPhuenzNcC4vGUmrNkiOKTlIrBoyNQYNpSwfEZXSg==}
-
   '@types/node@26.0.1':
     resolution: {integrity: sha512-fc3KiUoBt6kie0N9bIW3E47vZsuaMf0PM2AaUpLCLT0s/LvX1nxAim6Fc049cNxODPpGm6qRAuUOB86SkRuPQw==}
+
+  '@types/node@26.6.4':
+    resolution: {integrity: sha512-ldVPDCzj7fsaGZrLB0NuHuTvJcsNasysBAqMolr/cgxrLd1xbqxIr3XJiPnHHJUCxj5sNF1vnRj9aWnrVh5Jcg==}
 
   '@types/qs@6.14.0':
     resolution: {integrity: sha512-eOunJqu0K1923aExK6y8p6fsihYEn/BYuQ4g0CxAAgFc4b/ZLN4CrsRZ55srTdqoiLzU2B2evC+apEIxprEzkQ==}
@@ -3165,6 +3168,9 @@ packages:
   undici-types@8.3.0:
     resolution: {integrity: sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ==}
 
+  undici-types@8.9.0:
+    resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
+
   unicorn-magic@0.3.0:
     resolution: {integrity: sha512-+QBBXBCvifc56fsbuxZQ6Sic3wqqc3WWaqxs58gvJrcOuN83HGTCwz3oS5phzU9LthRNE9VrJCFCLUgHeeFnfA==}
     engines: {node: '>=18'}
@@ -3195,6 +3201,7 @@ packages:
 
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   v8-to-istanbul@9.3.0:
@@ -4078,24 +4085,24 @@ snapshots:
   '@types/body-parser@1.19.6':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 24.9.1
+      '@types/node': 26.0.1
 
   '@types/bonjour@3.5.13':
     dependencies:
-      '@types/node': 24.9.1
+      '@types/node': 26.6.4
 
   '@types/connect-history-api-fallback@1.5.4':
     dependencies:
       '@types/express-serve-static-core': 5.1.0
-      '@types/node': 24.9.1
+      '@types/node': 26.6.4
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 24.9.1
+      '@types/node': 26.6.4
 
   '@types/cors@2.8.19':
     dependencies:
-      '@types/node': 24.9.1
+      '@types/node': 26.6.4
 
   '@types/eslint-scope@3.7.7':
     dependencies:
@@ -4116,14 +4123,14 @@ snapshots:
 
   '@types/express-serve-static-core@4.19.7':
     dependencies:
-      '@types/node': 24.9.1
+      '@types/node': 26.0.1
       '@types/qs': 6.14.0
       '@types/range-parser': 1.2.7
       '@types/send': 1.2.1
 
   '@types/express-serve-static-core@5.1.0':
     dependencies:
-      '@types/node': 24.9.1
+      '@types/node': 26.6.4
       '@types/qs': 6.14.0
       '@types/range-parser': 1.2.7
       '@types/send': 1.2.1
@@ -4145,7 +4152,7 @@ snapshots:
 
   '@types/http-proxy@1.17.17':
     dependencies:
-      '@types/node': 24.9.1
+      '@types/node': 26.6.4
 
   '@types/istanbul-lib-coverage@2.0.6': {}
 
@@ -4155,7 +4162,7 @@ snapshots:
 
   '@types/node-forge@1.3.14':
     dependencies:
-      '@types/node': 24.9.1
+      '@types/node': 26.6.4
 
   '@types/node@22.18.11':
     dependencies:
@@ -4165,13 +4172,13 @@ snapshots:
     dependencies:
       undici-types: 7.16.0
 
-  '@types/node@24.9.1':
-    dependencies:
-      undici-types: 7.16.0
-
   '@types/node@26.0.1':
     dependencies:
       undici-types: 8.3.0
+
+  '@types/node@26.6.4':
+    dependencies:
+      undici-types: 8.9.0
 
   '@types/qs@6.14.0': {}
 
@@ -4182,11 +4189,11 @@ snapshots:
   '@types/send@0.17.6':
     dependencies:
       '@types/mime': 1.3.5
-      '@types/node': 24.9.1
+      '@types/node': 26.0.1
 
   '@types/send@1.2.1':
     dependencies:
-      '@types/node': 24.9.1
+      '@types/node': 26.0.1
 
   '@types/serve-index@1.9.4':
     dependencies:
@@ -4195,14 +4202,14 @@ snapshots:
   '@types/serve-static@1.15.10':
     dependencies:
       '@types/http-errors': 2.0.5
-      '@types/node': 24.9.1
+      '@types/node': 26.0.1
       '@types/send': 0.17.6
 
   '@types/serviceworker@0.0.197': {}
 
   '@types/sockjs@0.3.36':
     dependencies:
-      '@types/node': 24.9.1
+      '@types/node': 26.6.4
 
   '@types/tapable@2.2.7':
     dependencies:
@@ -4210,7 +4217,7 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 24.9.1
+      '@types/node': 26.0.1
 
   '@typescript-eslint/eslint-plugin@8.62.0(@typescript-eslint/parser@8.62.0(eslint@10.2.0(jiti@2.6.1))(typescript@5.9.3))(eslint@10.2.0(jiti@2.6.1))(typescript@5.9.3)':
     dependencies:
@@ -4953,7 +4960,7 @@ snapshots:
   engine.io@6.6.5(bufferutil@4.0.9):
     dependencies:
       '@types/cors': 2.8.19
-      '@types/node': 24.9.1
+      '@types/node': 26.6.4
       accepts: 1.3.8
       base64id: 2.0.0
       cookie: 0.7.2
@@ -6454,6 +6461,8 @@ snapshots:
 
   undici-types@8.3.0: {}
 
+  undici-types@8.9.0: {}
+
   unicorn-magic@0.3.0: {}
 
   universalify@2.0.1: {}
@@ -6484,15 +6493,15 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite-plugin-static-copy@3.1.6(vite@7.3.1(@types/node@26.0.1)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.1)):
+  vite-plugin-static-copy@3.1.6(vite@7.3.1(@types/node@26.6.4)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.1)):
     dependencies:
       chokidar: 3.6.0
       p-map: 7.0.4
       picocolors: 1.1.1
       tinyglobby: 0.2.15
-      vite: 7.3.1(@types/node@26.0.1)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.1)
+      vite: 7.3.1(@types/node@26.6.4)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.1)
 
-  vite@7.3.0(@types/node@26.0.1)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.1):
+  vite@7.3.0(@types/node@26.6.4)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.1):
     dependencies:
       esbuild: 0.27.2
       fdir: 6.5.0(picomatch@4.0.3)
@@ -6501,13 +6510,13 @@ snapshots:
       rollup: 4.52.5
       tinyglobby: 0.2.15
     optionalDependencies:
-      '@types/node': 26.0.1
+      '@types/node': 26.6.4
       fsevents: 2.3.3
       jiti: 2.6.1
       terser: 5.44.1
       yaml: 2.8.1
 
-  vite@7.3.1(@types/node@26.0.1)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.1):
+  vite@7.3.1(@types/node@26.6.4)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.1):
     dependencies:
       esbuild: 0.27.2
       fdir: 6.5.0(picomatch@4.0.3)
@@ -6516,7 +6525,7 @@ snapshots:
       rollup: 4.52.5
       tinyglobby: 0.2.15
     optionalDependencies:
-      '@types/node': 26.0.1
+      '@types/node': 26.6.4
       fsevents: 2.3.3
       jiti: 2.6.1
       terser: 5.44.1
