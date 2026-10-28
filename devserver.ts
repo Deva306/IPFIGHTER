@@ -54,6 +54,7 @@ const server = await createServer({
 	configFile: "./packages/demo/vite.config.ts",
 	root: "./packages/demo",
 	server: {
+		host: "0.0.0.0",
 		port: Number(DEMO_PORT),
 		strictPort: true,
 	},

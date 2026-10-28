@@ -1,0 +1,16 @@
+{
+  "name": "IPFIGHTER Development",
+  "forwardPorts": [4141, 4142],
+  "portsAttributes": {
+    "4141": {
+      "label": "IPFIGHTER Web",
+      "onAutoForward": "openBrowser",
+      "visibility": "public"
+    },
+    "4142": {
+      "label": "IPFIGHTER Wisp",
+      "onAutoForward": "notify",
+      "visibility": "public"
+    }
+  }
+}
